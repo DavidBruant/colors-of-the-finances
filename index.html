@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="referrer" value="same-origin">
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>Explore totem</title>
+        
+        <meta name="description" content="....">
+        
+        <script>
+            "use strict";
+
+            fetch('./CA2016 BPAL scellé.xml')
+            .then(r => r.text())
+            .then(xmlText => (new DOMParser()).parseFromString(xmlText, 'text/xml'))
+            .then(doc => {
+                console.log('doc', doc)
+
+                console.log('Lignes budgétaires', doc.querySelectorAll('LigneBudget').length)
+
+                const annexes = doc.querySelector('Annexes')
+
+                console.log('Emprunts', annexes.querySelectorAll('DATA_EMPRUNT EMPRUNT').length)
+                console.log('Trésorerie', annexes.querySelectorAll('DATA_TRESORERIE TRESORERIE').length)
+                console.log('Tiers', annexes.querySelectorAll('DATA_TIERS TIERS').length)
+                console.log('Crédit bail', annexes.querySelectorAll('DATA_CREDIT_BAIL CREDIT_BAIL').length)
+                console.log('PPP', annexes.querySelectorAll('DATA_PPP PPP').length)
+                console.log('Autre engagement', annexes.querySelectorAll('DATA_AUTRE_ENGAGEMENT AUTRE_ENGAGEMENT').length)
+
+                // apparemment, les personnes physiques sont <CodNatJurBenefCA V="P3"/>
+                console.log('Concours (subv)', annexes.querySelectorAll('DATA_CONCOURS CONCOURS').length)
+
+                console.log('Recette affectée', annexes.querySelectorAll('DATA_RECETTE_AFFECTEE RECETTE_AFFECTEE').length)
+                console.log('Formation (élus ?)', annexes.querySelectorAll('DATA_FORMATION FORMATION').length)
+                console.log('Fiscalité', annexes.querySelectorAll('DATA_FISCALITE FISCALITE').length)
+                console.log('Consolidation', annexes.querySelectorAll('DATA_CONSOLIDATION CONSOLIDATION').length)
+                console.log('ORGANISME_ENG', annexes.querySelectorAll('DATA_ORGANISME_ENG ORGANISME_ENG').length)
+                console.log('ORGANISME_GROUP', annexes.querySelectorAll('DATA_ORGANISME_GROUP ORGANISME_GROUP').length)
+                console.log('Patrimoine', annexes.querySelectorAll('DATA_PATRIMOINE PATRIMOINE').length)
+                console.log('Personnel', annexes.querySelectorAll('DATA_PERSONNEL PERSONNEL').length)
+                console.log('Ventilation', annexes.querySelectorAll('DATA_VENTILATION VENTILATION').length)
+                console.log('Contrat couv', annexes.querySelectorAll('DATA_CONTRAT_COUV CONTRAT_COUV').length)
+                console.log('Méthode amortissement', annexes.querySelectorAll('DATA_AMORTISSEMENT_METHODE AMORTISSEMENT_METHODE').length)
+                console.log('Provision', annexes.querySelectorAll('DATA_PROVISION PROVISION').length)
+                console.log('APCP', annexes.querySelectorAll('DATA_APCP APCP').length)
+                console.log('Signature', annexes.querySelectorAll('DATA_SIGNATURE SIGNATURE').length)
+                console.log('Signataires', annexes.querySelectorAll('DATA_SIGNATAIRE SIGNATAIRE').length)
+                console.log('etab service', annexes.querySelectorAll('DATA_ETAB_SERVICE ETAB_SERVICE').length)
+                console.log('Prêt', annexes.querySelectorAll('DATA_PRET PRET').length)
+                console.log('Fond Européen', annexes.querySelectorAll('DATA_FOND_EUROPEEN FOND_EUROPEEN').length)
+                
+
+                const emprunts = Array.from(annexes.querySelectorAll('DATA_EMPRUNT EMPRUNT'))
+                .map(e => {
+                    const ret = {};
+                    
+                    ['LibOrgaPreteur', 'AnEncaisse', 'DtEmission', 'DureeRest', 'MtEmprOrig', 'Txinit']
+                    .forEach(key => {
+                        const el = e.querySelector(key);
+                        if(el)
+                            ret[key] = el.getAttribute('V')
+                    })
+
+                    return ret
+                })
+                .sort( (e1, e2) => {
+                    return Number(e2['AnEncaisse']) - Number(e1['AnEncaisse'])
+                });
+
+                document.body.append(
+                    Emprunts(emprunts)
+                )
+
+            })
+
+
+            function Emprunts(emprunts){
+                const table = document.createElement('table');
+                table.innerHTML = `<tbody></tbody>`;
+                table.tBodies[0].append(...emprunts.map(Emprunt));
+                return table;
+            }
+
+            function Emprunt({LibOrgaPreteur, AnEncaisse, DtEmission, DureeRest, MtEmprOrig, Txinit}){
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${AnEncaisse}</td>
+                    <td>${LibOrgaPreteur}</td>
+                    <td>${DtEmission}</td>
+                    <td>${DureeRest}</td>
+                    <td>${MtEmprOrig}</td>
+                    <td>${Txinit}</td>
+                `;
+                return tr;
+            }
+
+
+        </script>
+
+
+    </head>
+
+    <body>
+        <nav></nav>
+        <div class="cd33-finance-dataviz"></div>
+    </body>
+</html>
