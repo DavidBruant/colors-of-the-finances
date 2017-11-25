@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="referrer" value="same-origin">
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>Explore totem</title>
+        
+        <meta name="description" content="....">
+        
+        <script>
+            "use strict";
+
+
+            function Subventions(subvs){
+                const table = document.createElement('table');
+                table.classList.add('subvs'),
+                table.innerHTML = `<tbody></tbody>`;
+                table.tBodies[0].append(...subvs.map(Sub));
+                return table;
+            }
+
+            function Sub({CodNatJurBenefCA, LibOrgaBenef, MtSubv}){
+                const tr = document.createElement('tr');
+                tr.classList.add(CodNatJurBenefCA);
+                tr.innerHTML = `
+                    <td>${LibOrgaBenef}</td>
+                    <td>${MtSubv}</td>
+                `;
+                return tr;
+            }
+
+            document.addEventListener('DOMContentLoaded', e => {
+                fetch('./CA2016 BPAL scellé.xml')
+                .then(r => r.text())
+                .then(xmlText => (new DOMParser()).parseFromString(xmlText, 'text/xml'))
+                .then(doc => {
+                    const annexes = doc.querySelector('Annexes');
+                    const subvs = Array.from(annexes.querySelectorAll('DATA_CONCOURS CONCOURS'))
+                    .map(s => {
+                        const ret = {};
+                        
+                        ['CodNatJurBenefCA', 'LibOrgaBenef', 'MtSubv']
+                        .forEach(key => {
+                            const el = s.querySelector(key);
+                            if(el){
+                                if(key === 'MtSubv'){
+                                    ret[key] = Number(el.getAttribute('V'));
+                                }
+                                else{
+                                    ret[key] = el.getAttribute('V').trim();
+                                }
+                            }
+                                
+                        })
+
+                        return ret;
+                    })
+                    .sort( (s1, s2) =>  s2['MtSubv'] - s1['MtSubv'] );
+
+                    document.body.append(
+                        Subventions(subvs)
+                    )
+
+                    document.body.querySelector('input[type=search]').addEventListener('input', e => {
+                        const input = e.target;
+                        const search = input.value.toLowerCase();
+                        
+                        document.body.querySelector('.subvs').replaceWith(Subventions(subvs.filter(s => s['LibOrgaBenef'].toLowerCase().includes(search))))
+                    })
+
+                })
+
+
+
+            })
+
+            
+
+        </script>
+
+
+    </head>
+
+    <body>
+        <input type="search">
+    </body>
+</html>
