@@ -69,7 +69,9 @@
                         const search = input.value.toLowerCase();
                         
                         document.body.querySelector('.subvs').replaceWith(Subventions(subvs.filter(s => s['LibOrgaBenef'].toLowerCase().includes(search))))
-                    })
+                    });
+
+                    // document.body.append(Bouture.input({type: 'search', onInput: e => {}}).element)
 
                 })
 
