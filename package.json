@@ -1,0 +1,24 @@
+{
+  "name": "colors-of-the-finances",
+  "version": "1.0.0",
+  "description": "Ce dépôt de code contient divers projets explorant et mettant en avant les données contenues dans les fichiers DocumentBudgetaire",
+  "main": "docBudgXMLtoCSV.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DavidBruant/colors-of-the-finances.git"
+  },
+  "keywords": [],
+  "author": "David Bruant <bruant.d@gmail.com> (https://twitter.com/DavidBruant)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DavidBruant/colors-of-the-finances/issues"
+  },
+  "homepage": "https://github.com/DavidBruant/colors-of-the-finances#readme",
+  "dependencies": {
+    "fs-extra": "^4.0.2",
+    "xmldom": "^0.1.27"
+  }
+}
