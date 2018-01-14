@@ -38,3 +38,8 @@ Ce manque de compétence les empêche de juger rapidement si la santé financiè
 Une solution ici pourrait être de réunir des personnes qui ont la compétence aujourd'hui et des personnes qui savent coder pour créer des outils qui évaluent automatiquement autant que possible la santé financière des collectivités. Cet effort serait open source, documenté et basé sur des données open data. Il serait donc auditable, criticable et pourrait être réutilisé par d'autres groupes qui contesteraient la validité/pertinence des algorithmes choisis pour évaluer la santé financière.
 
 
+## Tech side
+
+```sh
+node -r @std/esm docBudgXMLtoCSV.js
+```

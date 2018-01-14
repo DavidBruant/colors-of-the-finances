@@ -18,7 +18,17 @@
   },
   "homepage": "https://github.com/DavidBruant/colors-of-the-finances#readme",
   "dependencies": {
+    "@std/esm": "^0.18.0",
+    "d3-array": "^1.2.1",
+    "d3-dsv": "^1.0.7",
     "fs-extra": "^4.0.2",
     "xmldom": "^0.1.27"
+  },
+  "@std/esm": {
+    "esm": "js",
+    "cjs": {
+      "namedExports": true,
+      "vars": true
+    }
   }
 }
