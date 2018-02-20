@@ -33,7 +33,7 @@
             }
 
             document.addEventListener('DOMContentLoaded', e => {
-                fetch('./CA2016 BPAL scellé.xml')
+                fetch('./data/CA2016BPAL.xml')
                 .then(r => r.text())
                 .then(xmlText => (new DOMParser()).parseFromString(xmlText, 'text/xml'))
                 .then(doc => {
