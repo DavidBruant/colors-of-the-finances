@@ -49,7 +49,7 @@ L'outil d'anonymisation [prend l'initiative de convertir les fichiers en UTF-8](
 </DocumentBudgetaire>
 ````
 
-On peut noter qu'aucune des URL fournies n'est valide.
+Les schémas sont des URI utilisées pour définir l'espace de nommage dans lequel interpréter les balises, mais ne sont pas des URL : elles ne résolvent pas vers des documents (cf. [RFC](http://www.ietf.org/rfc/rfc3986.txt) et [version plus lisible](https://stackoverflow.com/a/176274/594053)). Pour plus d'informations sur les schémas XML, voir la [spec XML Schema](https://www.w3.org/TR/xmlschema-1/#schema-loc).
 
 ### Premier niveau
 
