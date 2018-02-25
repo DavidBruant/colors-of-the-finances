@@ -412,5 +412,5 @@ Il n'est pas clair à ce jour si ces informations constituent une atteinte à la
 <DATA_SIGNATAIRE>
 ```
 
-Informations sur le vote et la signature du document en question ainsi que la liste des signataires (élus). 
+Informations sur le vote et la signature du document en question ainsi que la liste des signataires (élu·e·s). 
 
