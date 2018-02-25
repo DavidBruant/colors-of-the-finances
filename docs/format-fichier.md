@@ -376,7 +376,7 @@ Il est possible que la combinaison des informations `EmploiGradeAgent`, `TempsCo
 
 `IndiceAgent` renseigne l'indice de l'agent de la collectivité. Il semblerait que cette information permette de retrouver le salaire de l'agent en question.
 
-Il n'est pas clair à ce jour si ces informations constituent une atteinte à la vie privée.
+Il n'est pas clair à ce jour si la publication de ces informations constitue une atteinte à la vie privée.
 
 
 #### Signature et signataires
