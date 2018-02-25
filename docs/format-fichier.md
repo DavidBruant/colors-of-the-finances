@@ -49,7 +49,7 @@ L'outil d'anonymisation [prend l'initiative de convertir les fichiers en UTF-8](
 </DocumentBudgetaire>
 ````
 
-On peut noter qu'aucune des URL fournie n'est valide.
+On peut noter qu'aucune des URL fournies n'est valide.
 
 ### Premier niveau
 
@@ -59,7 +59,7 @@ On peut noter qu'aucune des URL fournie n'est valide.
 <VersionSchema V="80"/>
 ```
 
-Défini la version du XML Schema utilisée pour valider ce fichier
+Définit la version du XML Schema utilisée pour valider ce fichier
 
 
 #### Scellement
@@ -70,15 +70,15 @@ Défini la version du XML Schema utilisée pour valider ce fichier
 
 > Le scellement est une action qui permet à un ordonnateur d'indiquer qu'il ne fera plus de modification du flux avant son transfert en préfécture ou à la DGFiP.
 >
-> Le scellement n'est pas une signature éléctronique, et n'a pas valeur probante. C'est une empreinte qui permet simplement de savoir si le flux a été altéré pendant son transfert.
+> Le scellement n'est pas une signature électronique, et n'a pas valeur probante. C'est une empreinte qui permet simplement de savoir si le flux a été altéré pendant son transfert.
 >
 > Avant le calcul de l'empreinte, si le bloc Scellement existe dans le flux il est supprimé. Le flux est ensuite canonisé par canonisation non exclusive sans commentaires.
 
-[source](http://odm-budgetaire.org/doc-schema/Class_Scellement_xsd_Complex_Type_TScellement.html#TScellement)
+[Source](http://odm-budgetaire.org/doc-schema/Class_Scellement_xsd_Complex_Type_TScellement.html#TScellement)
 
-Etant donné qu'il existe des mécanismes de vérification de non-alteration au niveau des protocoles réseau ([FCS](https://en.wikipedia.org/wiki/Frame_check_sequence), [checksum](https://en.wikipedia.org/wiki/IPv4_header_checksum), [ségmentation TCP](https://fr.wikipedia.org/wiki/Transmission_Control_Protocol#Structure_d'un_segment_TCP)), la valeur ajoutée du scellement non-signature n'est pas claire.
+Etant donné qu'il existe des mécanismes de vérification de non-altération au niveau des protocoles réseau ([FCS](https://en.wikipedia.org/wiki/Frame_check_sequence), [checksum](https://en.wikipedia.org/wiki/IPv4_header_checksum), [segmentation TCP](https://fr.wikipedia.org/wiki/Transmission_Control_Protocol#Structure_d'un_segment_TCP)), la valeur ajoutée du scellement non-signature n'est pas claire.
 
-Le choix d'avoir un md5 **ET** un sha1 n'est pas documenté.
+Le choix d'avoir un MD5 **ET** un SHA1 n'est pas documenté.
 
 A priori, le processus d'anonymisation d'un document budgétaire altère le document d'une manière qui rend les valeurs de scellement inutiles. Cette hypothèse n'a pas été vérifiée.
 
@@ -98,7 +98,7 @@ A priori, le processus d'anonymisation d'un document budgétaire altère le docu
 
 `DteStr` est la date où l'établissement public a émis le document.
 
-`IdColl` est l'identifiant de la collectivité public. Il s'agit du numéro SIRET. Normallement, il devrait être possible de croiser ces fichers avec la [base de données SIREN](https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/)
+`IdColl` est l'identifiant de la collectivité public. Il s'agit du numéro SIRET. Normalement, il devrait être possible de croiser ces fichers avec la [base de données SIREN](https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/).
 
 
 ### Budget
@@ -117,7 +117,7 @@ A priori, le processus d'anonymisation d'un document budgétaire altère le docu
 
 `IdEtab` correspond au SIRET de l'établissement (parfois, une collectivité possède plusieurs établissements).
 
-`Nomenclature` correspond au type de nomenclature utilisée (`M52-M52` pour les départements, `M14_COM_SUP3500` pour les communes de plus de 3500 habitants, etc.) et permet donc d'identifier le type de collectivité.
+`Nomenclature` correspond au type de nomenclature utilisée (`M52-M52` pour les départements, `M14_COM_SUP3500` pour les communes de plus de 3500 habitants, etc) et permet donc d'identifier le type de collectivité.
 
 
 #### Bloc budget
@@ -150,12 +150,12 @@ A priori, le processus d'anonymisation d'un document budgétaire altère le docu
 | 03 | Budget supplémentaire |
 | 09 | Compte administratif  |
 
-`Exer` correspond à l'année de l'exercice
+`Exer` correspond à l'année de l'exercice.
 
 
 #### Lignes budgétaires
 
-Les lignes constituent le cœur du document budgétaire
+Les lignes constituent le cœur du document budgétaire :
 
 ```xml
 <LigneBudget>
@@ -177,21 +177,21 @@ Les lignes constituent le cœur du document budgétaire
 </LigneBudget>
 ```
 
-`CodRD` indique s'il s'agit d'une recette ou d'une dépense
+`CodRD` indique s'il s'agit d'une recette ou d'une dépense.
 
-`Nature` correspond à la nature de la recette/dépense, c'est-à-dire au "quoi". Le numéro est un numéro d'article. Exemples de nature : carburant, dépenses de personnel, etc.
+`Nature` correspond à la nature de la recette/dépense, c'est-à-dire au "quoi". Le numéro est un numéro d'article. Exemples de nature : carburant, dépenses de personnel…
 
 `Fonction` correspond à la fonction de la recette/dépense, c'est-à-dire au "pourquoi". Le numéro est un numéro de fonction. Exemples de fonctions : éducation, sécurité.
 
-`ContNat` correspond au numéro de compte
+`ContNat` correspond au numéro de compte.
 
-A partir de toutes ces informations, on peut savoir, en regardant dans le [plan de compte](http://odm-budgetaire.org/composants/normes/2016/M52/M52/planDeCompte.xml) pour trouver le chapitre :
+À partir de toutes ces informations on peut savoir, en regardant dans le [plan de compte](http://odm-budgetaire.org/composants/normes/2016/M52/M52/planDeCompte.xml) pour trouver le chapitre :
 dans le tableau "Liste des comptes et utilisations", utiliser le `ContNat` comme code et voir le chapitre correspondant dans la colonne RR ou DR pour une recette ou une dépense respectivement.
 
 Pour savoir s'il s'agit de **F**onctionnement ou d'**I**nvestissement, regarder dans le tableau "Liste des chapitres" : 
 Utiliser le code de chapitre et regarder la colonne *SECTION*.
 
-`OpBudg` permet de différencier les opération réelles (`0`) ou d'ordre (`1`). On ne se soucie habituellement que des opérations réelles
+`OpBudg` permet de différencier les opération réelles (`0`) ou d'ordre (`1`). On ne se soucie habituellement que des opérations réelles.
 
 `MtReal` correspond au montant vraiment réalisé. Il n'a sûrement de sens que dans un Compte Administratif.
 
@@ -200,9 +200,9 @@ Utiliser le code de chapitre et regarder la colonne *SECTION*.
 
 Les annexes contiennent un trésor d'informations. 
 
-Délibérément, cette section ne documente exhaustivement toutes les parties de l'annexes, mais seulement des morceaux choisis. La liste exhaustive peut être trouvée dans le [documentation générée à partir du XML Schema](http://odm-budgetaire.org/doc-schema/Class_Budget_xsd_Complex_Type_TBudget.html#TBudget_Annexes)
+Délibérément, cette section ne documente pas exhaustivement toutes les parties de l'annexe, mais seulement des morceaux choisis. La liste exhaustive peut être trouvée dans le [documentation générée à partir du XML Schema](http://odm-budgetaire.org/doc-schema/Class_Budget_xsd_Complex_Type_TBudget.html#TBudget_Annexes)
 
-Toutes les parties des annexes sont délimitées par des balises `<DATA_XXX>` dont le contenu est une liste d'éléments `<XXX>`
+Toutes les parties des annexes sont délimitées par des balises `<DATA_XXX>` dont le contenu est une liste d'éléments `<XXX>`.
 
 
 #### Les subventions (`<DATA_CONCOURS>`)
@@ -215,16 +215,16 @@ Toutes les parties des annexes sont délimitées par des balises `<DATA_XXX>` do
 </CONCOURS>
 ```
 
-`MtSubv` Montant de la subvention en euros
+`MtSubv` : montant de la subvention en euros.
 
-`LibOrgaBenef` Chaîne de caractère libre identifiant le bénéficiaire de la subvention. Il est regrettable que le SIRET du bénéficiaire ne soit pas disponible quand celui-ci existe, mais une recherche textuelle devrait pouvoir suffire pour recouper avec la base SIRENE.
+`LibOrgaBenef` : chaîne de caractère libre identifiant le bénéficiaire de la subvention. Il est regrettable que le SIRET du bénéficiaire ne soit pas disponible quand celui-ci existe, mais une recherche textuelle devrait pouvoir suffire pour recouper avec la base SIRENE.
 
-`CodNatJurBenefCA` décrit le type de nature juridique du bénéficiaire. Par exemple, `P3` pour les personnes physiques ou `P1` pour les associations loi 1901. Cette information est utilisée par [l'outil d'anonymisation](https://github.com/dtc-innovation/anonymisation-document-budgetaire/) pour anonymiser le `LibOrgaBenef` correspondant
+`CodNatJurBenefCA` décrit le type de nature juridique du bénéficiaire. Par exemple, `P3` pour les personnes physiques ou `P1` pour les associations loi 1901. Cette information est utilisée par [l'outil d'anonymisation](https://github.com/dtc-innovation/anonymisation-document-budgetaire/) pour anonymiser le `LibOrgaBenef` correspondant.
 
 
 #### Patrimoine (`<DATA_PATRIMOINE>`)
 
-Il s'agit de tout le patrimoine de la collectivité. On y trouve tout ce qui est possédé des immeubles et voitures jusqu'aux licences logiciel, cafetières ou housse d'ordinateur.
+Il s'agit de tout le patrimoine de la collectivité. On y trouve tout ce qui est possédé des immeubles et voitures jusqu'aux licences logicielles, cafetières ou housses d'ordinateur.
 
 ```xml
 <PATRIMOINE>
@@ -244,16 +244,16 @@ Il s'agit de tout le patrimoine de la collectivité. On y trouve tout ce qui est
 </PATRIMOINE>
 ```
 
-`NumInventaire` identifiant du bien. Il manque notablement auprès de qui l'achat a été fait, peut-être des informations sur le marché public s'il y en a eu un, ainsi que le SIRET de l'entreprise qui a produit/vendu ce bien.
+`NumInventaire` : identifiant du bien. Il manque notammement auprès de qui l'achat a été fait, peut-être des informations sur le marché public s'il y en a eu un, ainsi que le SIRET de l'entreprise qui a produit/vendu ce bien.
 
-`MtValAcquiBien` Valeur d'acquisition du bien
+`MtValAcquiBien` : valeur d'acquisition du bien.
 
-`DtAcquiBien` Date d'acquisition du bien
+`DtAcquiBien` : date d'acquisition du bien.
 
 
 #### Les emprunts (`<DATA_EMPRUNT>`)
 
-Il s'agit des emprunts contractés par la collectivité souvent pour financer ses investissements. Chaque `<EMPRUNT>` correspond à un emprunt que la collectivité n'a pas encore remboursé entièrement.
+Il s'agit des emprunts contractés par la collectivité, souvent pour financer ses investissements. Chaque `<EMPRUNT>` correspond à un emprunt que la collectivité n'a pas encore remboursé entièrement.
 
 ```xml
 <EMPRUNT>
@@ -307,39 +307,38 @@ Il s'agit des emprunts contractés par la collectivité souvent pour financer se
 
 **Relation de la collectivité à l'emprunt**
 
-`CodTypEmpr` identifie notamment si l'emprunt est fait par la collectivité pour elle-même (`01`) ou si elle garantit seulement l'emprunt pour un autre établissement (`09`)
+`CodTypEmpr` identifie notamment si l'emprunt est fait par la collectivité pour elle-même (`01`) ou si elle garantit seulement l'emprunt pour un autre établissement (`09`).
 
 **Emprunt en lui-même**
 
-`DtSignInit` Date de signature de l'emprunt
+`DtSignInit` : date de signature de l'emprunt.
 
-`DureeContratInit` Durée initiale de remboursement de l'emprunt (en année)
+`DureeContratInit` : durée initiale de remboursement de l'emprunt (en années).
 
-`MtEmprOrig` Montant originel de l'emprunt
+`MtEmprOrig` : montant originel de l'emprunt.
 
-`MtCapitalRestDu_31_12` Montant restant à rembourser
+`MtCapitalRestDu_31_12` : montant restant à rembourser.
 
-`Txinit` Taux initial de l'emprunt
+`Txinit` : taux initial de l'emprunt.
 
-`Structure` Information documentant s'il s'agit d'un emprunt à taux fixe (`A`) ou un emprunt plus complexe, dont le taux serait indicé sur le CAC40, une autre monnaie ou autre chose. Il y a habituellement un facteur multiplicateur maximum au taux d'emprunt de base. Si ce facteur dépasse 5, il s'agit d'un emprunt potentiellement dangereux que l'on appelle usuellement "emprunt toxique". Il est identifié ici par la valeur `F`.
+`Structure` : information documentant s'il s'agit d'un emprunt à taux fixe (`A`) ou un emprunt plus complexe, dont le taux serait indicé sur le CAC40, une autre monnaie ou autre chose. Il y a habituellement un facteur multiplicateur maximum au taux d'emprunt de base. Si ce facteur dépasse 5, il s'agit d'un emprunt potentiellement dangereux que l'on appelle usuellement « emprunt toxique ». Il est identifié ici par la valeur `F`.
 
 **Relation au prêteur**
 
-`LibOrgaPreteur` Organisme préteur. Il peut s'agir d'établissements publics (caisses des dépots et consignations) ou privés (LCL, Crédit agricole, etc.)
+`LibOrgaPreteur` : organisme prêteur. Il peut s'agir d'établissements publics (Caisse des dépôts et consignations) ou privés (LCL, Crédit agricole…).
 
-`ObjEmpr` identifiant du contrat de prêt
-
+`ObjEmpr` : identifiant du contrat de prêt.
 
 
 
 #### PPP (`<DATA_PPP>`)
 
-Données liées aux partenariats public-privé. Cette section n'a pas été étudiée, mais elle existe
+Données liées aux partenariats public-privé. Cette section n'a pas été étudiée, mais elle existe.
 
 
 #### Pret (`<DATA_PPP>`)
 
-Argent que l'établissement public prête à d'autres
+Argent que l'établissement public prête à d'autres.
 
 ```xml
 <PRET>
@@ -352,12 +351,12 @@ Argent que l'établissement public prête à d'autres
 </PRET>
 ```
 
-Les prêts ne renseignent pas la nature juridique du bénéficiaire (par un élément `CodNatJurBenefCA` comme on peut trouver dans les subventions). Vu que certains prêts sont faits à des personnes physiques, il a été nécessaire d'anonymiser tous les prêts
+Les prêts ne renseignent pas la nature juridique du bénéficiaire (par un élément `CodNatJurBenefCA` comme on peut trouver dans les subventions). Vu que certains prêts sont faits à des personnes physiques, il a été nécessaire d'anonymiser tous les prêts.
 
 
 #### Personnel (`<DATA_PERSONNEL>`)
 
-Liste de tous les personnels de la collectivité publique
+Liste de tous les personnels de la collectivité publique.
 
 ````xml
 <PERSONNEL>
@@ -413,5 +412,5 @@ Il n'est pas clair à ce jour si ces informations constituent une atteinte à la
 <DATA_SIGNATAIRE>
 ```
 
-Informations sur le vote et la signature du document en question ainsi que la liste des signataires (élus). 
+Informations sur le vote et la signature du document en question ainsi que la liste des signataires (élu·e·s). 
 
