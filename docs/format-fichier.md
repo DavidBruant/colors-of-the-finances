@@ -2,7 +2,7 @@
 
 ## Origines et usage
 
-Les fichiers `<DocumentBudgetaire>` sont produits par les collectivités territoriales et autres établissements publics dans le cadre du [projet Actes Budgétaires](https://www.collectivites-locales.gouv.fr/actes-budgetaires-0) qui se repose sur la [plateforme @ctes](https://www.collectivites-locales.gouv.fr/actes-0) ([Présentation technique](https://www.collectivites-locales.gouv.fr/files/files/2016_03_11_Presentation_ACTES_Prefets_pr_emetteurs.pdf)).
+Les fichiers `<DocumentBudgetaire>` sont produits par les collectivités territoriales et autres établissements publics dans le cadre du [projet Actes Budgétaires](https://www.collectivites-locales.gouv.fr/finances-locales/decouvrir-actes-budgetaires) qui se repose sur la [plateforme @ctes](https://www.collectivites-locales.gouv.fr/institutions/ctes-dematerialisation-de-la-transmission-des-actes) ([Présentation technique](https://www.collectivites-locales.gouv.fr/sites/default/files/migration/2019_04_presentation_actes_v1.1.pdf)).
 
 Un fichier correspond à **un** document budgétaire d'**une étape budgétaire** (Budget Primitif, Compte Administratif, etc.) d'**un établissement public** pour **un exercice** (une année). Le format de fichier est commun à tous les types d'établissements publics et de collectivités territoriales.
 
@@ -194,6 +194,8 @@ Utiliser le code de chapitre et regarder la colonne *SECTION*.
 `OpBudg` permet de différencier les opération réelles (`0`) ou d'ordre (`1`). On ne se soucie habituellement que des opérations réelles.
 
 `MtReal` correspond au montant vraiment réalisé. Il n'a sûrement de sens que dans un Compte Administratif.
+
+`MtPrev` correspond au montant prévisionnel. Il est normallement utilisé dès le Budget Primitif.
 
 
 ### Annexes
